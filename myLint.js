@@ -1,3 +1,6 @@
+/**
+ * verifies Javascript source code
+ */
 var esprima = require('esprima');
 
 
@@ -22,9 +25,15 @@ module.exports = (function() {
       parseError = true;
     }
 
-    if (!parseError) {
-      return JSON.stringify(ast);
+    if (!parseError && ast && ast.comments && ast.comments.length > 0) {
+      ast.comments.forEach(function(comment) {
+        if (comment.type === 'Block') {
+          messages.push('Comment Block:\n' + comment.value);
+        }
+      });
+      
     }
+    return messages.join('\n');
   };
 
   return api;
