@@ -1,0 +1,18 @@
+{
+  "name": "playingWithEsprima",
+  "version": "0.0.0",
+  "description": "playing around with esprima to build a js linter like eslint",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jimmyhchan/playingWithEsprima.git"
+  },
+  "keywords": [
+    "esprima"
+  ],
+  "author": "Jimmy Chan",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "esprima": "~1.0.4"
+  }
+}
