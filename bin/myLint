@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var myLint = require('../myLint'),
+    fs = require('fs'),
+    path = require('path'),
+    argv = require('optimist')
+            .usage('$0 -f filename.js')
+            .demand('f')
+            .alias('f', 'file')
+            .describe('f', 'File to lint')
+            .argv;
+
+function processFile(filename) {
+  var text = fs.readFileSync(path.resolve(filename), "utf8"),
+      output = myLint.verify(text);
+
+  console.log(output);
+}
+
+processFile(argv.f);

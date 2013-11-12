@@ -1,38 +1,31 @@
-var esprima = require('esprima'),
-    ast;
+var esprima = require('esprima');
 
 
-// @see http://esprima.org/
-
-// simple parse ussage @see http://esprima.org/doc/index.html
-ast = esprima.parse(
-    [ '// a simple comment',
-    'var answer = 42'
-    ].join('\n'), {comment: true});
+//public interface
+module.exports = (function() {
+  var api = {},
+      messages = [];
 
 
-console.log(JSON.stringify(ast));
-/**
-{
-    "type": "Program",
-    "body": [{
-        "type": "VariableDeclaration",
-        "declarations": [{
-            "type": "VariableDeclarator",
-            "id": {
-                "type": "Identifier",
-                "name": "answer"
-            },
-            "init": {
-                "type": "Literal",
-                "value": 42
-            }
-        }],
-        "kind": "var"
-    }],
-    "comments": [{
-        "type": "Line",
-        "value": " a simple comment"
-    }]
-}
-*/
+  /**
+   * Looks at the text and (currently) returns block comments
+   * @param {string} text The Javascript text to look at
+   * @return {object[]} the results array of comments
+   */
+  api.verify = function(text) {
+    var ast, parseError;
+
+    try {
+      ast = esprima.parse(text, {comment: true});
+    } catch(e) {
+      messages.push({error:'true', message: 'parse error'});
+      parseError = true;
+    }
+
+    if (!parseError) {
+      return JSON.stringify(ast);
+    }
+  };
+
+  return api;
+})();
