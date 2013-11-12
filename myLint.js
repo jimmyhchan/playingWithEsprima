@@ -8,7 +8,7 @@ var esprima = require('esprima'),
 ast = esprima.parse(
     [ '// a simple comment',
     'var answer = 42'
-    ].join('\n'), 'comment', true);
+    ].join('\n'), {comment: true});
 
 
 console.log(JSON.stringify(ast));
@@ -29,7 +29,10 @@ console.log(JSON.stringify(ast));
             }
         }],
         "kind": "var"
+    }],
+    "comments": [{
+        "type": "Line",
+        "value": " a simple comment"
     }]
 }
-
 */
