@@ -8,7 +8,12 @@ var esprima = require('esprima'),
 //public interface
 module.exports = (function() {
   var api = {},
-      messages = [];
+      messages = [],
+      // we should load everything in the formatters folder instead
+      formatters = {
+        '@example': require('./formatters/example'),
+        '@param': require('./formatters/param')
+      };
 
 
   /**
@@ -33,7 +38,14 @@ module.exports = (function() {
           docletParts = docletParser.parse(comment.value);
           if (docletParts) {
             messages.push('Doclet Parts:\n' + docletParts.join('\n'));
+            docletParts.forEach(function(part) {
+              var docletType = part.match(/\@[a-zA-Z_\-$]*/);
+              if (formatters[docletType]) {
+                messages.push(formatters[docletType].format(part));
+              }
+            });
           }
+
         }
       });
       
