@@ -23,4 +23,4 @@ playingWithEsprima
 ## Look at the AST and output comment blocks
 * @see 8883b0b
 
-## Add a comment block parser to return jsdoc parts
+## Add a comment block parser to return jsdoc parts and get it hooked up to the linter

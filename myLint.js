@@ -1,7 +1,8 @@
 /**
  * verifies Javascript source code
  */
-var esprima = require('esprima');
+var esprima = require('esprima'),
+    docletParser = require('./lib/parseDoclets');
 
 
 //public interface
@@ -27,8 +28,12 @@ module.exports = (function() {
 
     if (!parseError && ast && ast.comments && ast.comments.length > 0) {
       ast.comments.forEach(function(comment) {
+        var docletParts;
         if (comment.type === 'Block') {
-          messages.push('Comment Block:\n' + comment.value);
+          docletParts = docletParser.parse(comment.value);
+          if (docletParts) {
+            messages.push('Doclet Parts:\n' + docletParts.join('\n'));
+          }
         }
       });
       
