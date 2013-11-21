@@ -16,7 +16,7 @@ So what? What's so useful about a JS parser? With a JS parser you can build some
 ## Example of Using Esprima
 Let's look at a quick example based on the [Esprima Documentation](http://esprima.org/doc/index.html)
 
-```
+```js
 var esprima = require('esprima'),
     ast;
 
@@ -64,7 +64,7 @@ We want to build a module with a simple API.
 
 this is `myLint.js`
 
-```
+```js
 /**
  * verifies Javascript source code
  */
@@ -114,13 +114,13 @@ Let's create an node commandline executable file and put it into a bin folder. T
 
 We are going to pull in the `optimist` module to help us build the commandline script. Let's install it locally and put them in package.json
 
-```
+```js
 npm install optimist --save
 ```
 
 this is `bin/myLint`
 
-```
+```js
 #!/usr/bin/env node
 
 var myLint = require('../myLint'),
@@ -146,7 +146,7 @@ processFile(argv.f);
 
 running the script against myLint.js
 
-```
+```js
 $ node bin/myLint -f myLint.js
 Comment Block:
 *
@@ -163,7 +163,7 @@ Comment Block:
 ### Build a parser
 With the comment block pulled out lets create a module that parses a jsdoc style doclet
 
-```
+```js
 module.exports = (function() {
   var parser = {},
       STAR = '*',
@@ -224,7 +224,7 @@ How do we imagine the code will scale? How do we keep things modular and extensi
 
 Let's add an `@example` formatter and a `@param` formatter
 
-```
+```js
 module.exports = (function() {
   var formatter = {};
   formatter.format = function(commentText) {
@@ -236,7 +236,7 @@ module.exports = (function() {
 
 ```
 
-```
+```js
 var rParamParts = /\@param\W+\{(.*)\}\W+(\w*)\W+(.*)/;
 // this does not reflect optional values or mixed types
 
@@ -257,7 +257,7 @@ module.exports = (function(){
 ```
 
 ### Hooking it up
-```
+```js
 /**
  * verifies Javascript source code
  */
